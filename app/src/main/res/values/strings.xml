@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">shopping</string>
+    <string name="add_shop">add shop</string>
+    <string name="home">home</string>
+    <string name="name">name</string>
+    <string name="save">save</string>
+    <string name="description">description</string>
+</resources>
