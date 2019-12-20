@@ -94,7 +94,7 @@ public class ViewHolder<T extends DBObject>
         else closeExtraMenu();
     }
 
-    private void openExtraMenu(){
+    public void openExtraMenu(){
         extraMenuOpen = true;
         name.setVisibility(View.GONE);
         favourite.setVisibility(View.VISIBLE);
@@ -102,7 +102,7 @@ public class ViewHolder<T extends DBObject>
         edit.setVisibility(View.VISIBLE);
     }
 
-    private void closeExtraMenu(){
+    public void closeExtraMenu(){
         extraMenuOpen = false;
         name.setVisibility(View.VISIBLE);
         favourite.setVisibility(View.GONE);

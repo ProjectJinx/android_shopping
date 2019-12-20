@@ -50,6 +50,12 @@ public class GroceryAdapter extends CustomAdapter<Grocery, Groceries, GroceryAda
             Log.d("GroceryAdapter.set", (dbObject == null) ? "" : dbObject.getName());
             name.setText((dbObject == null) ? "" : dbObject.getName());
         }
+
+        @Override
+        public void openExtraMenu() {
+            super.openExtraMenu();
+            favourite.setVisibility(View.GONE);
+        }
     }
 
     @NonNull
