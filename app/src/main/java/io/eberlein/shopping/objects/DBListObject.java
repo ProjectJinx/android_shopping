@@ -1,5 +1,7 @@
 package io.eberlein.shopping.objects;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +35,6 @@ public class DBListObject<T extends DBObject> extends DBObject implements DBList
     public int add(T object){
         if(!stringReferences.contains(object.getUuid())) {
             stringReferences.add(object.getUuid());
-            save();
             return size() - 1;
         }
         return -1;
@@ -42,12 +43,16 @@ public class DBListObject<T extends DBObject> extends DBObject implements DBList
     @Override
     public void remove(T object){
         stringReferences.remove(object.getUuid());
-        save();
+        Paper.book(getBook()).delete(object.getUuid());
     }
 
     @Override
     public T get(int position){
-        return Paper.book(getBook()).read(stringReferences.get(position));
+        String ref = stringReferences.get(position);
+        Log.d(getBook(), ref);
+        T r = Paper.book(getBook()).read(ref);
+        Log.d(getBook(), r.getUuid());
+        return r;
     }
 
     @Override

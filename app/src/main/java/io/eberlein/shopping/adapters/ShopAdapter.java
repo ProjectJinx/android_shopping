@@ -1,7 +1,11 @@
 package io.eberlein.shopping.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -14,9 +18,10 @@ import io.eberlein.shopping.ui.GroceriesFragment;
 import io.eberlein.shopping.ui.ShopFragment;
 import io.eberlein.shopping.viewholders.ViewHolder;
 
-public class ShopAdapter extends CustomAdapter<Shop, ShopAdapter.VH> {
+public class ShopAdapter extends CustomAdapter<Shop, Shops, ShopAdapter.VH> {
     public ShopAdapter(Shops shops, Context ctx, FragmentManager fragmentManager){
         super(shops, ctx, fragmentManager);
+        Log.d("ShopAdapter", "init");
     }
 
     class VH extends ViewHolder<Shop> {
@@ -42,9 +47,16 @@ public class ShopAdapter extends CustomAdapter<Shop, ShopAdapter.VH> {
 
         @Override
         public void set(Shop dbObject) {
+            Log.d("ShopAdapter.set", dbObject.getName());
+            name.setText(dbObject.getName());
             super.set(dbObject);
-            setName(dbObject.getName());
         }
+    }
+
+    @NonNull
+    @Override
+    public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new VH(getInflatedView(parent));
     }
 
     @Override

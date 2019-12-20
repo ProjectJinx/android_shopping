@@ -8,6 +8,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.alibaba.fastjson.JSON;
 import com.blankj.utilcode.util.FragmentUtils;
 import com.google.android.material.navigation.NavigationView;
 
@@ -18,6 +19,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.Menu;
 
 import org.greenrobot.eventbus.EventBus;
@@ -34,6 +36,7 @@ import io.eberlein.shopping.objects.Shop;
 import io.eberlein.shopping.objects.Shops;
 import io.eberlein.shopping.ui.GroceriesFragment;
 import io.eberlein.shopping.ui.ShopFragment;
+import io.paperdb.Book;
 import io.paperdb.Paper;
 
 
@@ -54,10 +57,27 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
 
+    private void testDB(){
+        for(String b : new String[]{
+                Static.BOOK_GROCERIES,
+                Static.BOOK_DBLISTOBJECT,
+                Static.BOOK_DBOBJECT,
+                Static.BOOK_GROCERY,
+                Static.BOOK_SHOP,
+                Static.BOOK_SHOPS
+        }) {
+            for(String k : Paper.book(b).getAllKeys()){
+                Log.d(b, k);
+                Log.d(k, JSON.toJSONString(Paper.book(b).read(k)));
+            }
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Paper.init(this);
+        testDB();
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);

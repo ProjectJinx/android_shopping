@@ -2,6 +2,7 @@ package io.eberlein.shopping.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -16,8 +17,8 @@ import io.eberlein.shopping.objects.DBObject;
 import io.eberlein.shopping.viewholders.ViewHolder;
 
 
-public class CustomAdapter<T extends DBObject, VH extends ViewHolder<T>> extends RecyclerView.Adapter<VH> {
-    private DBListObject<T> dbListObject;
+public class CustomAdapter<T extends DBObject, L extends DBListObject<T>, VH extends ViewHolder<T>> extends RecyclerView.Adapter<VH> {
+    private L dbListObject;
     private Context ctx;
     private FragmentManager fragmentManager;
 
@@ -29,17 +30,20 @@ public class CustomAdapter<T extends DBObject, VH extends ViewHolder<T>> extends
         throw new NotImplementedException("getItemEditFragment");
     }
 
-    public CustomAdapter(DBListObject<T> dbListObject, Context ctx, FragmentManager fragmentManager){
+    public CustomAdapter(L dbListObject, Context ctx, FragmentManager fragmentManager){
         this.dbListObject = dbListObject;
         this.ctx = ctx;
         this.fragmentManager = fragmentManager;
     }
 
-    @SuppressWarnings("unchecked")
+    public View getInflatedView(ViewGroup parent){
+        return LayoutInflater.from(ctx).inflate(R.layout.viewholder_custom, parent, false);
+    }
+
     @NonNull
     @Override
     public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return (VH) new ViewHolder<T>(LayoutInflater.from(ctx).inflate(R.layout.viewholder_custom, parent, false));
+        throw new NotImplementedException("onCreateViewHolder");
     }
 
     @SuppressWarnings("unchecked")
@@ -58,7 +62,7 @@ public class CustomAdapter<T extends DBObject, VH extends ViewHolder<T>> extends
         if(p > 0) notifyItemChanged(p);
     }
 
-    public void set(DBListObject<T> dbListObject){
+    public void set(L dbListObject){
         this.dbListObject = dbListObject;
         notifyDataSetChanged();
     }

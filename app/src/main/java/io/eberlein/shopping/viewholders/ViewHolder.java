@@ -39,16 +39,12 @@ public class ViewHolder<T extends DBObject> extends RecyclerView.ViewHolder impl
         throw new NotImplementedException("onClicked");
     }
 
-    @BindView(R.id.viewHolder)
-    RelativeLayout viewHolder;
-    @BindView(R.id.tv_name)
-    TextView name;
+    public @BindView(R.id.viewHolder) RelativeLayout viewHolder;
+    public @BindView(R.id.tv_name) TextView name;
     // hidden
-    @BindView(R.id.cb_fav)
-    CheckBox favourite;
-    @BindView(R.id.btn_delete)
-    Button delete;
-    @BindView(R.id.btn_edit) Button edit;
+    public @BindView(R.id.cb_fav) CheckBox favourite;
+    public @BindView(R.id.btn_delete) Button delete;
+    public @BindView(R.id.btn_edit) Button edit;
 
     @OnClick(R.id.btn_delete)
     void btnDeleteClicked(){
@@ -100,9 +96,5 @@ public class ViewHolder<T extends DBObject> extends RecyclerView.ViewHolder impl
 
     public void setColor(int c){
         viewHolder.setBackgroundColor(c);
-    }
-
-    public void setName(String name){
-        this.name.setText(name);
     }
 }
