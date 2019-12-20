@@ -14,7 +14,7 @@ public class Shop extends DBObject {
         this.favourite = false;
         this.name = "";
         this.description = "";
-        this.groceries = new Groceries(getUuid());
+        this.groceries = new Groceries(this);
     }
 
     public String getName() {
@@ -61,6 +61,7 @@ public class Shop extends DBObject {
 
     public Grocery newGrocery(){
         Grocery g = new Grocery(this);
+        g.save();
         groceries.add(g);
         return g;
     }

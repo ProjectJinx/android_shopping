@@ -56,7 +56,7 @@ public class GroceriesFragment extends Fragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onGroceryItemChanged(GroceryItemChangedEvent gice){
-
+        groceryAdapter.notifyItemChanged(groceryAdapter.getItemCount() - 1);
     }
 
     @Override

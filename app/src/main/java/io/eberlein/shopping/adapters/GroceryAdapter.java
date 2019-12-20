@@ -30,7 +30,7 @@ public class GroceryAdapter extends CustomAdapter<Grocery, Groceries, GroceryAda
 
         @Override
         public void onClicked(Grocery object) {
-            FragmentUtils.replace(getFragmentManager(), getItemOnClickFragment(object), R.id.nav_host_fragment);
+            // does nothing
         }
 
         @Override
@@ -47,8 +47,8 @@ public class GroceryAdapter extends CustomAdapter<Grocery, Groceries, GroceryAda
         @Override
         public void set(Grocery dbObject) {
             super.set(dbObject);
-            Log.d("GroceryAdapter.set", dbObject.getName());
-            name.setText(dbObject.getName());
+            Log.d("GroceryAdapter.set", (dbObject == null) ? "" : dbObject.getName());
+            name.setText((dbObject == null) ? "" : dbObject.getName());
         }
     }
 
