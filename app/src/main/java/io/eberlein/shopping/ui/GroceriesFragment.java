@@ -70,4 +70,10 @@ public class GroceriesFragment extends Fragment {
         super.onStop();
         EventBus.getDefault().unregister(this);
     }
+
+    @Override
+    public void onDestroy() {
+        shop.save();
+        super.onDestroy();
+    }
 }
