@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="64dp"
+    android:id="@+id/viewHolder">
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="8dp"
+        android:textSize="32sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/btn_edit"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="8dp"
+        android:text="@string/edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/btn_delete"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="8dp"
+        android:text="@string/delete"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <CheckBox
+        android:id="@+id/cb_fav"
+        android:text="@string/utf8_star"
+        android:textSize="32sp"
+        android:visibility="gone"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@id/btn_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>

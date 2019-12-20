@@ -19,8 +19,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.eberlein.shopping.R;
-import io.eberlein.shopping.event.ShopAdapterItemChanged;
-import io.eberlein.shopping.object.Shop;
+import io.eberlein.shopping.events.ShopAdapterItemChangedEvent;
+import io.eberlein.shopping.objects.Shop;
 
 public class ShopFragment extends Fragment {
     private Shop shop;
@@ -28,6 +28,7 @@ public class ShopFragment extends Fragment {
     // todo small image view in front of name
     @BindView(R.id.et_name) EditText name;
     @BindView(R.id.linear_images) LinearLayout images;
+    @BindView(R.id.et_desc) EditText description;
 
     @OnClick(R.id.btn_save)
     void btnSaveClicked(){
@@ -68,23 +69,9 @@ public class ShopFragment extends Fragment {
 
     private void saveShop(){
         shop.setName(name.getText().toString());
-        shop.save();
-        EventBus.getDefault().post(new ShopAdapterItemChanged());
+        shop.setDescription(description.getText().toString());
+        EventBus.getDefault().post(new ShopAdapterItemChangedEvent(shop));
     }
-
-    /*
-    @Override
-    public void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        EventBus.getDefault().unregister(this);
-    }
-     */
 
     @Override
     public void onDestroy() {

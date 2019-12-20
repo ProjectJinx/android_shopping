@@ -27,9 +27,11 @@ import org.greenrobot.eventbus.ThreadMode;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.eberlein.shopping.adapter.ShopAdapter;
-import io.eberlein.shopping.event.ShopAdapterItemChanged;
-import io.eberlein.shopping.object.Shops;
+import io.eberlein.shopping.adapters.ShopAdapter;
+import io.eberlein.shopping.events.ShopAdapterItemChangedEvent;
+import io.eberlein.shopping.events.ShopFavouritedEvent;
+import io.eberlein.shopping.objects.Shop;
+import io.eberlein.shopping.objects.Shops;
 import io.eberlein.shopping.ui.GroceriesFragment;
 import io.eberlein.shopping.ui.ShopFragment;
 import io.paperdb.Paper;
@@ -67,18 +69,27 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
 
         shops = Shops.get();
-        shopAdapter = new ShopAdapter(getSupportFragmentManager(), this, shops);
+        shopAdapter = new ShopAdapter(shops, this, getSupportFragmentManager());
         shopRecycler.setLayoutManager(new LinearLayoutManager(this));
         shopRecycler.setAdapter(shopAdapter);
 
         if(shops.size() == 0) drawer.openDrawer(GravityCompat.START);
-        else FragmentUtils.replace(getSupportFragmentManager(), new GroceriesFragment(shops.get(0)), R.id.nav_host_fragment); // todo mark favourite and open that one
+        else FragmentUtils.replace(getSupportFragmentManager(), new GroceriesFragment(shops.get(0)), R.id.nav_host_fragment);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onShopAdapterItemChanged(ShopAdapterItemChanged saic){
-        shopAdapter.set(Shops.get());
+    public void onShopAdapterItemChanged(ShopAdapterItemChangedEvent saic){
+        shops.add(saic.getObject());
+        shopAdapter.notifyDataSetChanged();
         drawer.openDrawer(GravityCompat.START);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onShopItemFavourited(ShopFavouritedEvent sf){
+        Shop fs = sf.getObject();
+        for(Shop shop : shops.getObjects()){
+            if(!shop.getUuid().equals(fs.getUuid()) && shop.isFavourite()) shop.setFavourite(false);
+        }
     }
 
     @Override

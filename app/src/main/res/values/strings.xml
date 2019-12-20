@@ -5,4 +5,13 @@
     <string name="name">name</string>
     <string name="save">save</string>
     <string name="description">description</string>
+    <string name="add">add</string>
+    <string name="cancel">cancel</string>
+    <string name="add_grocery">add grocery</string>
+    <string name="cost">cost</string>
+    <string name="x">x</string>
+    <string name="price">price</string>
+    <string name="delete">delete</string>
+    <string name="utf8_star">&#11088;</string>
+    <string name="edit">edit</string>
 </resources>
