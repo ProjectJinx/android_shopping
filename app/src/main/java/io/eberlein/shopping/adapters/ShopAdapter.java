@@ -56,6 +56,7 @@ public class ShopAdapter extends CustomAdapter<Shop, Shops, ShopAdapter.VH> {
     @NonNull
     @Override
     public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        Log.d("ShopAdapter", "onCreateViewHolder");
         return new VH(getInflatedView(parent));
     }
 

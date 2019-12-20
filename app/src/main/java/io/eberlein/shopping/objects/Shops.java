@@ -4,7 +4,7 @@ import io.eberlein.shopping.Static;
 
 public class Shops extends DBListObject<Shop> {
     public Shops(){
-        super(Static.BOOK_SHOPS);
+        super(Static.BOOK_SHOP);
     }
 
     public Shop getFavourited(){

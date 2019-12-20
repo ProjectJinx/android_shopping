@@ -1,5 +1,6 @@
 package io.eberlein.shopping.viewholders;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -91,6 +92,7 @@ public class ViewHolder<T extends DBObject> extends RecyclerView.ViewHolder impl
 
     @Override
     public void set(T dbObject){
+        Log.d("ViewHolder", "set");
         this.dbObject = dbObject;
     }
 

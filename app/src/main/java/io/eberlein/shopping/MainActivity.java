@@ -59,12 +59,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void testDB(){
         for(String b : new String[]{
-                Static.BOOK_GROCERIES,
-                Static.BOOK_DBLISTOBJECT,
                 Static.BOOK_DBOBJECT,
                 Static.BOOK_GROCERY,
-                Static.BOOK_SHOP,
-                Static.BOOK_SHOPS
+                Static.BOOK_SHOP
         }) {
             for(String k : Paper.book(b).getAllKeys()){
                 Log.d(b, k);

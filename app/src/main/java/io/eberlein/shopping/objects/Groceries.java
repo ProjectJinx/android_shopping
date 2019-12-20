@@ -4,6 +4,6 @@ import io.eberlein.shopping.Static;
 
 public class Groceries extends DBListObject<Grocery> {
     public Groceries(){
-        super(Static.BOOK_GROCERIES);
+        super(Static.BOOK_GROCERY);
     }
 }

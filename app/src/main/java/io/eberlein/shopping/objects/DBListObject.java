@@ -13,14 +13,9 @@ import io.paperdb.Paper;
 public class DBListObject<T extends DBObject> extends DBObject implements DBListObjectInterface<T> {
     private List<String> stringReferences;
 
-    public DBListObject(){
-        super(Static.BOOK_DBLISTOBJECT);
-        stringReferences = new ArrayList<>();
-    }
-
     public DBListObject(String book){
         super(book);
-        stringReferences = new ArrayList<>();
+        stringReferences = Paper.book(book).getAllKeys();
     }
 
     @Override
