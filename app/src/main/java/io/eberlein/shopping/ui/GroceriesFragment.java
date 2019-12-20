@@ -22,11 +22,13 @@ import io.eberlein.shopping.R;
 import io.eberlein.shopping.adapters.GroceryAdapter;
 import io.eberlein.shopping.dialogs.GroceryDialog;
 import io.eberlein.shopping.events.GroceryItemChangedEvent;
+import io.eberlein.shopping.objects.Groceries;
 import io.eberlein.shopping.objects.Shop;
 
 
 public class GroceriesFragment extends Fragment {
     private Shop shop;
+    private Groceries groceries;
     private GroceryAdapter groceryAdapter;
 
     @BindView(R.id.recycler_groceries) RecyclerView groceryRecycler;
@@ -45,7 +47,8 @@ public class GroceriesFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_groceries, container, false);
         ButterKnife.bind(this, v);
-        groceryAdapter = new GroceryAdapter(shop.getGroceries(), getContext(), null);
+        groceries = shop.getGroceries();
+        groceryAdapter = new GroceryAdapter(groceries, getContext(), null);
         groceryRecycler.setAdapter(groceryAdapter);
         groceryRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
         return v;
@@ -53,8 +56,7 @@ public class GroceriesFragment extends Fragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onGroceryItemChanged(GroceryItemChangedEvent gice){
-        int p = shop.addGrocery(gice.getObject());
-        if(p >= 0) groceryAdapter.notifyItemChanged(p);
+
     }
 
     @Override

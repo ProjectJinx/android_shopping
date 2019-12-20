@@ -1,6 +1,7 @@
 package io.eberlein.shopping.viewholders;
 
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -15,13 +16,16 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnLongClick;
+import butterknife.OnTouch;
 import io.eberlein.shopping.R;
 import io.eberlein.shopping.exceptions.NotImplementedException;
 import io.eberlein.shopping.interfaces.ViewHolderInterface;
 import io.eberlein.shopping.objects.DBObject;
 
 
-public class ViewHolder<T extends DBObject> extends RecyclerView.ViewHolder implements ViewHolderInterface<T> {
+public class ViewHolder<T extends DBObject>
+        extends RecyclerView.ViewHolder
+        implements ViewHolderInterface<T> {
     private T dbObject;
     private boolean extraMenuOpen = false;
 
@@ -40,6 +44,26 @@ public class ViewHolder<T extends DBObject> extends RecyclerView.ViewHolder impl
         throw new NotImplementedException("onClicked");
     }
 
+    @Override
+    public void onSwipeDown(T object) {
+
+    }
+
+    @Override
+    public void onSwipeLeft(T object) {
+
+    }
+
+    @Override
+    public void onSwipeRight(T object) {
+
+    }
+
+    @Override
+    public void onSwipeUp(T object) {
+
+    }
+
     public @BindView(R.id.viewHolder) RelativeLayout viewHolder;
     public @BindView(R.id.tv_name) TextView name;
     // hidden
@@ -49,6 +73,7 @@ public class ViewHolder<T extends DBObject> extends RecyclerView.ViewHolder impl
 
     @OnClick(R.id.btn_delete)
     void btnDeleteClicked(){
+        closeExtraMenu();
         onBtnDeletedClicked(dbObject);
     }
 

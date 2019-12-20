@@ -24,6 +24,7 @@ import android.view.Menu;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.SubscriberExceptionEvent;
 import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
@@ -97,6 +98,11 @@ public class MainActivity extends AppCompatActivity {
             if(fs == null) drawer.openDrawer(GravityCompat.START);
             else FragmentUtils.replace(getSupportFragmentManager(), new GroceriesFragment(fs), R.id.nav_host_fragment);
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onSubscriberException(SubscriberExceptionEvent event){
+        event.throwable.printStackTrace();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

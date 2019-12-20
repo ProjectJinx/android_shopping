@@ -20,7 +20,7 @@ import io.eberlein.shopping.viewholders.ViewHolder;
 public class GroceryAdapter extends CustomAdapter<Grocery, Groceries, GroceryAdapter.VH> {
     public GroceryAdapter(Groceries groceries, Context ctx, FragmentManager fragmentManager){
         super(groceries, ctx, fragmentManager);
-        Log.d("ShopAdapter", "init");
+        Log.d("GroceryAdapter", "init");
     }
 
     class VH extends ViewHolder<Grocery> {
@@ -35,7 +35,7 @@ public class GroceryAdapter extends CustomAdapter<Grocery, Groceries, GroceryAda
 
         @Override
         public void onBtnEditClicked(Grocery object) {
-            FragmentUtils.replace(getFragmentManager(), getItemEditFragment(object), R.id.nav_host_fragment);
+            GroceryDialog.showGroceryDialog(getContext(), object);
         }
 
         @Override
@@ -46,9 +46,9 @@ public class GroceryAdapter extends CustomAdapter<Grocery, Groceries, GroceryAda
 
         @Override
         public void set(Grocery dbObject) {
-            Log.d("ShopAdapter.set", dbObject.getName());
-            name.setText(dbObject.getName());
             super.set(dbObject);
+            Log.d("GroceryAdapter.set", dbObject.getName());
+            name.setText(dbObject.getName());
         }
     }
 

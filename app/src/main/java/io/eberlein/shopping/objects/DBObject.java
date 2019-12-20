@@ -2,6 +2,7 @@ package io.eberlein.shopping.objects;
 
 import android.util.Log;
 
+import java.util.Date;
 import java.util.UUID;
 
 import io.eberlein.shopping.interfaces.DBObjectInterface;
@@ -12,10 +13,12 @@ public class DBObject implements DBObjectInterface {
     private final String book;
 
     private String uuid;
+    private Date created;
 
     public DBObject(String book){
         this.book = book;
-        uuid = UUID.randomUUID().toString();
+        this.uuid = UUID.randomUUID().toString();
+        this.created = new Date();
     }
 
     @Override
@@ -26,6 +29,10 @@ public class DBObject implements DBObjectInterface {
     @Override
     public String getBook() {
         return book;
+    }
+
+    public Date getCreated() {
+        return created;
     }
 
     @Override
@@ -41,5 +48,10 @@ public class DBObject implements DBObjectInterface {
     public void save(){
         Log.d(book, uuid);
         Paper.book(book).write(uuid, this);
+    }
+
+    @Override
+    public void delete() {
+        Paper.book(book).delete(uuid);
     }
 }

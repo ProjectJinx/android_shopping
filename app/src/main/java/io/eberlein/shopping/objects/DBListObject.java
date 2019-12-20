@@ -14,7 +14,7 @@ public class DBListObject<T extends DBObject> extends DBObject implements DBList
 
     public DBListObject(String book){
         super(book);
-        stringReferences =  Paper.book(book).getAllKeys();
+        stringReferences = new ArrayList<>(Paper.book(book).getAllKeys());
         Log.d("DBListObject:" + book, String.valueOf(stringReferences));
     }
 
@@ -37,17 +37,16 @@ public class DBListObject<T extends DBObject> extends DBObject implements DBList
 
     @Override
     public void remove(T object){
+        Log.d("DBListObject.remove:" + getBook(), object.getUuid());
         stringReferences.remove(object.getUuid());
-        Paper.book(getBook()).delete(object.getUuid());
+        object.delete();
     }
 
     @Override
     public T get(int position){
         String ref = stringReferences.get(position);
         Log.d(getBook(), ref);
-        T r = Paper.book(getBook()).read(ref);
-        Log.d(getBook(), r.getUuid());
-        return r;
+        return Paper.book(getBook()).read(ref);
     }
 
     @Override

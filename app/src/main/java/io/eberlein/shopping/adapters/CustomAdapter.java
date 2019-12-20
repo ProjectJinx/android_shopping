@@ -57,16 +57,6 @@ public class CustomAdapter<T extends DBObject, L extends DBListObject<T>, VH ext
         return dbListObject.size();
     }
 
-    public void add(T object){
-        int p = dbListObject.add(object);
-        if(p > 0) notifyItemChanged(p);
-    }
-
-    public void set(L dbListObject){
-        this.dbListObject = dbListObject;
-        notifyDataSetChanged();
-    }
-
     public void remove(T object){
         dbListObject.remove(object);
     }

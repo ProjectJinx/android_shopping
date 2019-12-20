@@ -60,6 +60,8 @@ public class Shop extends DBObject {
     }
 
     public Grocery newGrocery(){
-        return new Grocery(this);
+        Grocery g = new Grocery(this);
+        groceries.add(g);
+        return g;
     }
 }
