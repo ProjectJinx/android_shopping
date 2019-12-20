@@ -69,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
 
         shops = new Shops();
-        shops.loadFromDB();
         shopAdapter = new ShopAdapter(shops, this, getSupportFragmentManager());
         shopRecycler.setLayoutManager(new LinearLayoutManager(this));
         shopRecycler.setAdapter(shopAdapter);

@@ -8,39 +8,31 @@ import io.eberlein.shopping.interfaces.DBListObjectInterface;
 import io.paperdb.Book;
 import io.paperdb.Paper;
 
-public class DBListObject<T> extends DBObject implements DBListObjectInterface<T> {
-    private List<T> objects;
+public class DBListObject<T extends DBObject> extends DBObject implements DBListObjectInterface<T> {
+    private List<String> stringReferences;
 
     public DBListObject(){
         super(Static.BOOK_DBLISTOBJECT);
-        objects = new ArrayList<>();
+        stringReferences = new ArrayList<>();
     }
 
     public DBListObject(String book){
         super(book);
-        objects = new ArrayList<>();
-    }
-
-    @Override
-    public void loadFromDB() {
-        Book sb = Paper.book(getBook());
-        for(String k : sb.getAllKeys()) objects.add(sb.read(k));
+        stringReferences = new ArrayList<>();
     }
 
     @Override
     public List<T> getObjects() {
-        return objects;
-    }
-
-    @Override
-    public void setObjects(List<T> objects) {
-        this.objects = objects;
+        Book b = Paper.book(getBook());
+        List<T> r = new ArrayList<>();
+        for(String ref : stringReferences) r.add(b.read(ref));
+        return r;
     }
 
     @Override
     public int add(T object){
-        if(!objects.contains(object)) {
-            objects.add(object);
+        if(!stringReferences.contains(object.getUuid())) {
+            stringReferences.add(object.getUuid());
             save();
             return size() - 1;
         }
@@ -49,17 +41,17 @@ public class DBListObject<T> extends DBObject implements DBListObjectInterface<T
 
     @Override
     public void remove(T object){
-        objects.remove(object);
+        stringReferences.remove(object.getUuid());
         save();
     }
 
     @Override
     public T get(int position){
-        return objects.get(position);
+        return Paper.book(getBook()).read(stringReferences.get(position));
     }
 
     @Override
     public int size(){
-        return objects.size();
+        return stringReferences.size();
     }
 }
