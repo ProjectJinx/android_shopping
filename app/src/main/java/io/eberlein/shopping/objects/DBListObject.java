@@ -14,7 +14,7 @@ public class DBListObject<T extends DBObject> extends DBObject implements DBList
 
     public DBListObject(String book){
         super(book);
-        stringReferences = Paper.book(book).getAllKeys();
+        stringReferences =  Paper.book(book).getAllKeys();
         Log.d("DBListObject:" + book, String.valueOf(stringReferences));
     }
 
@@ -28,9 +28,6 @@ public class DBListObject<T extends DBObject> extends DBObject implements DBList
 
     @Override
     public int add(T object){
-        Log.d("DBListObject.add", String.valueOf(size()));
-        Log.d("DBListObject.add", String.valueOf(stringReferences.isEmpty()));
-        Log.d("DBListObject.add", object.getUuid());
         if(!stringReferences.contains(object.getUuid())) {
             stringReferences.add(object.getUuid());
             return size() - 1;

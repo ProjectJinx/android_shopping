@@ -53,8 +53,13 @@ public class Shop extends DBObject {
         save();
     }
 
-    public void addGrocery(Grocery grocery){
-        groceries.add(grocery);
+    public int addGrocery(Grocery grocery){
+        int r = groceries.add(grocery);
         save();
+        return r;
+    }
+
+    public Grocery newGrocery(){
+        return new Grocery(this);
     }
 }

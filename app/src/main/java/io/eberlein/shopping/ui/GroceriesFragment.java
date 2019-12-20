@@ -22,7 +22,6 @@ import io.eberlein.shopping.R;
 import io.eberlein.shopping.adapters.GroceryAdapter;
 import io.eberlein.shopping.dialogs.GroceryDialog;
 import io.eberlein.shopping.events.GroceryItemChangedEvent;
-import io.eberlein.shopping.objects.Grocery;
 import io.eberlein.shopping.objects.Shop;
 
 
@@ -34,7 +33,7 @@ public class GroceriesFragment extends Fragment {
 
     @OnClick(R.id.btn_add_grocery)
     void btnAddGroceryClicked(){
-        GroceryDialog.showGroceryDialog(getContext(), new Grocery());
+        GroceryDialog.showGroceryDialog(getContext(), shop.newGrocery());
     }
 
     public GroceriesFragment(Shop shop){
@@ -54,8 +53,8 @@ public class GroceriesFragment extends Fragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onGroceryItemChanged(GroceryItemChangedEvent gice){
-        shop.addGrocery(gice.getObject());
-        groceryAdapter.notifyDataSetChanged();
+        int p = shop.addGrocery(gice.getObject());
+        if(p >= 0) groceryAdapter.notifyItemChanged(p);
     }
 
     @Override

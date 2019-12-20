@@ -1,5 +1,6 @@
 package io.eberlein.shopping.objects;
 
+
 import io.eberlein.shopping.Static;
 
 public class Grocery extends DBObject {
@@ -7,8 +8,8 @@ public class Grocery extends DBObject {
     private double price;
     private int multi;
 
-    public Grocery(){
-        super(Static.BOOK_GROCERY);
+    public Grocery(Shop shop){
+        super(Static.BOOK_GROCERY + ":" + shop.getUuid());
         this.name = "";
         this.price = 0.0;
         this.multi = 1;
