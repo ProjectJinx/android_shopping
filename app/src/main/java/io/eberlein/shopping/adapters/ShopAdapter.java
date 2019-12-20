@@ -71,6 +71,7 @@ public class ShopAdapter extends CustomAdapter<Shop, Shops, ShopAdapter.VH> {
 
     @Override
     Fragment getItemEditFragment(Shop object) {
+        EventBus.getDefault().post(new ShopSelectedEvent());
         return new ShopFragment(object);
     }
 }

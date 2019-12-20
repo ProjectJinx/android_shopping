@@ -11,12 +11,17 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.eberlein.shopping.R;
 import io.eberlein.shopping.adapters.GroceryAdapter;
 import io.eberlein.shopping.dialogs.GroceryDialog;
+import io.eberlein.shopping.events.GroceryItemChangedEvent;
 import io.eberlein.shopping.objects.Grocery;
 import io.eberlein.shopping.objects.Shop;
 
@@ -45,5 +50,23 @@ public class GroceriesFragment extends Fragment {
         groceryRecycler.setAdapter(groceryAdapter);
         groceryRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
         return v;
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onGroceryItemChanged(GroceryItemChangedEvent gice){
+        shop.addGrocery(gice.getObject());
+        groceryAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
     }
 }

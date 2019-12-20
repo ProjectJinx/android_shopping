@@ -7,9 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 
+import org.greenrobot.eventbus.EventBus;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.eberlein.shopping.R;
+import io.eberlein.shopping.events.GroceryItemChangedEvent;
 import io.eberlein.shopping.objects.Grocery;
 
 import static com.blankj.utilcode.util.StringUtils.getString;
@@ -41,8 +44,6 @@ class DialogBinder {
 }
 
 public class GroceryDialog {
-
-
     public static void showGroceryDialog(Context ctx, Grocery grocery){
         AlertDialog.Builder adb = new AlertDialog.Builder(ctx);
         View v = LayoutInflater.from(ctx).inflate(R.layout.dialog_add_grocery, null, false);
@@ -55,6 +56,7 @@ public class GroceryDialog {
                 grocery.setMulti(db.getMulti());
                 grocery.setName(db.getName());
                 grocery.setPrice(db.getPrice());
+                EventBus.getDefault().post(new GroceryItemChangedEvent(grocery));
                 dialog.dismiss();
             }
         });
