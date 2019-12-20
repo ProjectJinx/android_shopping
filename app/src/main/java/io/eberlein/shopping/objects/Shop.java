@@ -4,8 +4,6 @@ package io.eberlein.shopping.objects;
 import io.eberlein.shopping.Static;
 
 public class Shop extends DBObject {
-    private static final String BOOK = Static.BOOK_SHOP;
-
     private boolean favourite;
     private String name;
     private String description;

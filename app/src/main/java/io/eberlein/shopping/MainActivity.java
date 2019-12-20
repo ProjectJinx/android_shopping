@@ -68,13 +68,18 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        shops = Shops.get();
+        shops = new Shops();
+        shops.loadFromDB();
         shopAdapter = new ShopAdapter(shops, this, getSupportFragmentManager());
         shopRecycler.setLayoutManager(new LinearLayoutManager(this));
         shopRecycler.setAdapter(shopAdapter);
 
         if(shops.size() == 0) drawer.openDrawer(GravityCompat.START);
-        else FragmentUtils.replace(getSupportFragmentManager(), new GroceriesFragment(shops.get(0)), R.id.nav_host_fragment);
+        else {
+            Shop fs = shops.getFavourited();
+            if(fs == null) drawer.openDrawer(GravityCompat.START);
+            else FragmentUtils.replace(getSupportFragmentManager(), new GroceriesFragment(fs), R.id.nav_host_fragment);
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

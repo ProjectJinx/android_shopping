@@ -10,4 +10,5 @@ public interface DBListObjectInterface<T> {
     void remove(T object);
     T get(int position);
     int size();
+    void loadFromDB();
 }

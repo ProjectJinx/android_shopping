@@ -22,14 +22,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnLongClick;
 import io.eberlein.shopping.R;
+import io.eberlein.shopping.exceptions.NotImplementedException;
 import io.eberlein.shopping.objects.DBListObject;
-
-
-class NotImplementedException extends UnsupportedOperationException {
-    public NotImplementedException(String methodName){
-        super(String.format("Method '%s' should be overwritten. Do not call this method directly.", methodName));
-    }
-}
 
 
 public class CustomAdapter<T> extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
