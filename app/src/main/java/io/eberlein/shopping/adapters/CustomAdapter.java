@@ -74,4 +74,8 @@ public class CustomAdapter<T extends DBObject, L extends DBListObject<T>, VH ext
     public FragmentManager getFragmentManager() {
         return fragmentManager;
     }
+
+    public Context getContext() {
+        return ctx;
+    }
 }

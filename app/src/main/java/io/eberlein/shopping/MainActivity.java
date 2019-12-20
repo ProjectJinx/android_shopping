@@ -32,6 +32,7 @@ import butterknife.OnClick;
 import io.eberlein.shopping.adapters.ShopAdapter;
 import io.eberlein.shopping.events.ShopAdapterItemChangedEvent;
 import io.eberlein.shopping.events.ShopFavouritedEvent;
+import io.eberlein.shopping.events.ShopSelectedEvent;
 import io.eberlein.shopping.objects.Shop;
 import io.eberlein.shopping.objects.Shops;
 import io.eberlein.shopping.ui.GroceriesFragment;
@@ -96,6 +97,11 @@ public class MainActivity extends AppCompatActivity {
             if(fs == null) drawer.openDrawer(GravityCompat.START);
             else FragmentUtils.replace(getSupportFragmentManager(), new GroceriesFragment(fs), R.id.nav_host_fragment);
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onShopSelected(ShopSelectedEvent sse){
+        drawer.closeDrawers();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

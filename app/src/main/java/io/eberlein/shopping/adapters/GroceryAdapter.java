@@ -11,46 +11,41 @@ import androidx.fragment.app.FragmentManager;
 
 import com.blankj.utilcode.util.FragmentUtils;
 
-import org.greenrobot.eventbus.EventBus;
-
 import io.eberlein.shopping.R;
-import io.eberlein.shopping.events.ShopSelectedEvent;
-import io.eberlein.shopping.objects.Shop;
-import io.eberlein.shopping.objects.Shops;
-import io.eberlein.shopping.ui.GroceriesFragment;
-import io.eberlein.shopping.ui.ShopFragment;
+import io.eberlein.shopping.dialogs.GroceryDialog;
+import io.eberlein.shopping.objects.Groceries;
+import io.eberlein.shopping.objects.Grocery;
 import io.eberlein.shopping.viewholders.ViewHolder;
 
-public class ShopAdapter extends CustomAdapter<Shop, Shops, ShopAdapter.VH> {
-    public ShopAdapter(Shops shops, Context ctx, FragmentManager fragmentManager){
-        super(shops, ctx, fragmentManager);
+public class GroceryAdapter extends CustomAdapter<Grocery, Groceries, GroceryAdapter.VH> {
+    public GroceryAdapter(Groceries groceries, Context ctx, FragmentManager fragmentManager){
+        super(groceries, ctx, fragmentManager);
         Log.d("ShopAdapter", "init");
     }
 
-    class VH extends ViewHolder<Shop> {
+    class VH extends ViewHolder<Grocery> {
         public VH(View v){
             super(v);
         }
 
         @Override
-        public void onClicked(Shop object) {
-            EventBus.getDefault().post(new ShopSelectedEvent());
+        public void onClicked(Grocery object) {
             FragmentUtils.replace(getFragmentManager(), getItemOnClickFragment(object), R.id.nav_host_fragment);
         }
 
         @Override
-        public void onBtnEditClicked(Shop object) {
+        public void onBtnEditClicked(Grocery object) {
             FragmentUtils.replace(getFragmentManager(), getItemEditFragment(object), R.id.nav_host_fragment);
         }
 
         @Override
-        public void onBtnDeletedClicked(Shop object) {
+        public void onBtnDeletedClicked(Grocery object) {
             remove(object);
             notifyDataSetChanged();
         }
 
         @Override
-        public void set(Shop dbObject) {
+        public void set(Grocery dbObject) {
             Log.d("ShopAdapter.set", dbObject.getName());
             name.setText(dbObject.getName());
             super.set(dbObject);
@@ -60,17 +55,12 @@ public class ShopAdapter extends CustomAdapter<Shop, Shops, ShopAdapter.VH> {
     @NonNull
     @Override
     public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Log.d("ShopAdapter", "onCreateViewHolder");
         return new VH(getInflatedView(parent));
     }
 
     @Override
-    Fragment getItemOnClickFragment(Shop object) {
-        return new GroceriesFragment(object);
-    }
-
-    @Override
-    Fragment getItemEditFragment(Shop object) {
-        return new ShopFragment(object);
+    Fragment getItemEditFragment(Grocery object) {
+        GroceryDialog.showGroceryDialog(getContext(), object);
+        return null;
     }
 }
